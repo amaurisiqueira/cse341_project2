@@ -61,7 +61,7 @@ footballClubs.post("/add", footballClubsController.createClub);
  *                 example: "Xavi Hernandez"
  *     responses:
  *       204:
- *         description: User created successfully. *
+ *         description: Club created successfully. *
  *       401:
  *          description: Not authorized
  *       404:
@@ -75,7 +75,7 @@ footballClubs.put("/:id", footballClubsController.updateClub);
  * @swagger
  * /club/{id}:
  *   put:
- *     summary: Update an existing user.
+ *     summary: Update an existing club.
  *     security:
  *        - apiAuth: []
  *     tags:
@@ -84,7 +84,7 @@ footballClubs.put("/:id", footballClubsController.updateClub);
  *       - name: id
  *         in: path
  *         required: true
- *         description: The ID of the user to update.
+ *         description: The ID of the club to update.
  *         schema:
  *           type: string
  *           example: "67439c820e89da4a29d66186"
@@ -122,7 +122,7 @@ footballClubs.put("/:id", footballClubsController.updateClub);
  *       401:
  *          description: Not authorized
  *       404:
- *         description: User not found.
+ *         description: Club not found.
  *       500:
  *         description: Internal server error.
  */
@@ -147,11 +147,11 @@ footballClubs.delete("/:id", footballClubsController.deleteClub);
  *           example: "67437a358eb4f184bc632bd1"
  *     responses:
  *       204:
- *         description: User deleted successfully.
+ *         description: Club deleted successfully.
  *       401:
  *          description: Not authorized
  *       404:
- *         description: User not found.
+ *         description: Club not found.
  *       500:
  *         description: Internal server error.
  */

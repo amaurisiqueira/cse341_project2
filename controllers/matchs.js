@@ -1,12 +1,12 @@
 const ObjectId = require("mongodb").ObjectId;
-const clubsData = require("../models/footballClub");
+const matchData = require("../models/match");
 const apiKey = require("../utils/getKey");
-const validateClub = require("../validation/validateClub");
+const validateMatch = require("../validation/validateMatch");
 const { validationResult } = require("express-validator");
 
 const getAll = async (req, res) => {
   if (req.header("apiKey") === apiKey) {
-    const result = await clubsData.getAll();
+    const result = await matchData.getAll();
 
     try {
       result.toArray().then((users) => {
@@ -22,9 +22,9 @@ const getAll = async (req, res) => {
   }
 };
 
-const createClub = async (req, res) => {
+const createMatch = async (req, res) => {
   if (req.header("apiKey") === apiKey) {
-    await Promise.all(validateClub.map((validation) => validation.run(req)));
+    await Promise.all(validateMatch.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -32,17 +32,17 @@ const createClub = async (req, res) => {
     }
 
     try {
-      const club = {
-        name: req.body.name,
-        country: req.body.country,
-        city: req.body.city,
+      const match = {
         stadium: req.body.stadium,
-        capacity: req.body.capacity,
-        foundedYear: req.body.foundedYear,
-        coach: req.body.coach,
+        team1: req.body.team1,
+        team2: req.body.team2,
+        team1goals: req.body.team1goals,
+        team2goals: req.body.team2goals,
+        referee: req.body.referee,
+        date: req.body.date,
       };
 
-      const result = await clubsData.createSingle(club);
+      const result = await matchData.createSingle(match );
 
       if (result.acknowledged) {
         res.status(204).send();
@@ -54,15 +54,15 @@ const createClub = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await clubsData.getAll();
+    //const result = await matchData.getAll();
   } else {
     res.status(401).send("Invalid apiKey, please read the documentation.");
   }
 };
 
-const updateClub = async (req, res) => {
+const updateMatch = async (req, res) => {
   if (req.header("apiKey") === apiKey) {
-    await Promise.all(validateClub.map((validation) => validation.run(req)));
+    await Promise.all(validateMatch.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -70,17 +70,17 @@ const updateClub = async (req, res) => {
     }
 
     try {
-      const club = {
-        name: req.body.name,
-        country: req.body.country,
-        city: req.body.city,
-        stadium: req.body.stadium,
-        capacity: req.body.capacity,
-        foundedYear: req.body.foundedYear,
-        coach: req.body.coach,
-      };
+        const match = {
+            stadium: req.body.stadium,
+            team1: req.body.team1,
+            team2: req.body.team2,
+            team1goals: req.body.team1goals,
+            team2goals: req.body.team2goals,
+            referee: req.body.referee,
+            date: req.body.date,
+          };
       const clubId = new ObjectId(req.params.id);
-      const result = await clubsData.updateSingle(clubId, club);
+      const result = await matchData.updateSingle(clubId, match);
 
       if (result.acknowledged) {
         res.status(204).send();
@@ -92,17 +92,17 @@ const updateClub = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await clubsData.getAll();
+    //const result = await matchData.getAll();
   } else {
     res.status(401).send("Invalid apiKey, please read the documentation.");
   }
 };
-const deleteClub = async (req, res) => {
+const deleteMatch = async (req, res) => {
   if (req.header("apiKey") === apiKey) {
-  try {
+    try {
     
       const clubId = new ObjectId(req.params.id);
-      const result = await clubsData.deleteSingle(clubId);
+      const result = await matchData.deleteSingle(clubId);
 
       if (result.deletedCount) {
         res.status(204).send();
@@ -114,7 +114,7 @@ const deleteClub = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await clubsData.getAll();
+    //const result = await matchData.getAll();
   } else {
     res.status(401).send("Invalid apiKey, please read the documentation.");
   }
@@ -122,4 +122,4 @@ const deleteClub = async (req, res) => {
 
 };
 
-module.exports = { getAll, createClub, updateClub, deleteClub };
+module.exports = { getAll, createMatch, updateMatch, deleteMatch };

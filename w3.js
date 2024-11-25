@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const footballClubsRouter = require("./routers/footballClubs");
-// const usersRouter = require("./routers/userRouter");
+const matchesRouter = require("./routers/matches");
 const cors = require("cors");
 const env = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
@@ -24,11 +24,9 @@ app.use(express.json());
 // Middleware para analizar el cuerpo de las solicitudes en formato URL-encoded
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/", mainRouter);
-
+ 
 app.use("/club", footballClubsRouter);
-
-// app.use("/matches", matches);
+app.use("/matches",  matchesRouter);
 
 process.on("uncaughtException", (err, origin) => {
   // Código para manejar el error
