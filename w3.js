@@ -24,13 +24,24 @@ app.use(express.json());
 // Middleware para analizar el cuerpo de las solicitudes en formato URL-encoded
 app.use(express.urlencoded({ extended: true }));
 
- 
 app.use("/club", footballClubsRouter);
-app.use("/matches",  matchesRouter);
+app.use("/matches", matchesRouter);
 
-process.on("uncaughtException", (err, origin) => {
-  // Código para manejar el error
-  console.log(process.strerr.fd, ` Caught exception: ${err}`);
+// Middleware para manejar rutas no definidas
+app.use((req, res, next) => {
+  const error = new Error("Ruta no encontrada");
+  error.status = 500;
+  next(error);
+});
+
+// Middleware para manejar errores
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
 });
 
 mongodb.initDb((err) => {

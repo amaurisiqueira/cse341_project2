@@ -1,86 +1,25 @@
 #### get all elements in a local project
-GET http://localhost:8089/user/getall HTTP/1.1
+GET http://localhost:8089/club/getallw
+apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
+
+
 ##### get all elements from Render
-GET https://cse341-project1-5jlz.onrender.com/user/getall HTTP/1.1
-
-
-#### local get by ID
-GET http://localhost:8089/user/getid/6726c0707a3ff02423980435  HTTP/1.1
-
-#### get by ID from render.com
-GET https://cse341-project1-5jlz.onrender.com/user/getid/6726c0707a3ff02423980435 HTTP/1.1
-
+GET https://cse341-project2-rb86.onrender.com/club/getall HTTP/1.1
+apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
 
 ##### create new contact localhost
-POST http://localhost:8089/user/add HTTP/1.1
+POST https://cse341-project2-rb86.onrender.com/club/add HTTP/1.1
+apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
+
 Content-Type: application/json
 
 {
-  "username": "Perico",
-  "email": "perico@lospalotes.cl",
-  "ipaddress": "198.168.0.55" ,
-  "firstName":"Perico" ,
-  "lastName":"Los palotes" , 
-  "favoriteColor": "green", 
-  "birthday":"05-25-1955" 
-} 
- 
-
-
-
-##### create new contact render
-POST https://cse341-project1-5jlz.onrender.com/user/add HTTP/1.1
-Content-Type: application/json
-
-{
-  "username": "Perico",
-  "email": "perico@lospalotes.cl",
-  "ipaddress": "198.168.0.55" ,
-  "firstName":"Perico" ,
-  "lastName":"Los palotes" , 
-  "favoriteColor": "green", 
-  "birthday":"05-25-1955" 
-} 
-
-##### update contact localhost
-PUT http://localhost:8089/user/673a5b3b1782137ee3c68283 HTTP/1.1
-Content-Type: application/json
-
-{
-  "username": "Perico II",
-  "email": "perico@lospalotes.cl",
-  "ipaddress": "198.168.0.55" ,
-  "firstName":"Perico" ,
-  "lastName":"Los palotes" , 
-  "favoriteColor": "green light", 
-  "birthday":"05-25-1955" 
+  "name": "FC Barcelona",
+  "country": "Spain",
+  "city": "Barcelona",
+  "stadium": "Camp Nou",
+  "capacity": 99354,
+  "foundedYear": "hyab",
+  "coach": "0
 }
 
-
-##### update contact render
-PUT https://cse341-project1-5jlz.onrender.com/user/673a5b3b1782137ee3c68283 HTTP/1.1
-Content-Type: application/json
-
-{
-  "username": "Perico II",
-  "email": "perico@lospalotes.cl",
-  "ipaddress": "198.168.0.55" ,
-  "firstName":"Perico" ,
-  "lastName":"Los palotes" , 
-  "favoriteColor": "green light", 
-  "birthday":"05-25-1955" 
-}
-
- 
-
-
-##### update contact localhost
-DELETE  http://localhost:8089/user/6726c0707a3ff02423980435 HTTP/1.1
-Content-Type: application/json
- 
-
-
-##### update contact render
-DELETE  https://cse341-project1-5jlz.onrender.com/user/6726c0707a3ff02423980435 HTTP/1.1
-Content-Type: application/json
- 
