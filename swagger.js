@@ -16,6 +16,7 @@ const options = {
   },
   schemes: ["https"],
   apis: [`${path.join(__dirname, "./routers/*.js")}`],
+  oauth2RedirectUrl: "http://localhost:8089/auth/github/callback",
 };
 
 const swaggerSpec = swaggerJSDoc(options);

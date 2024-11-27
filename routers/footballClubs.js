@@ -9,7 +9,7 @@ footballClubs.get("/getall", footballClubsController.getAll);
  *    get:
  *      summary: Obtain a list of all clubs in the collection.
  *      security:
- *        - apiAuth: []
+ *        - githubAuth: []
  *      tags:
  *        - club
  *      responses:
@@ -28,7 +28,7 @@ footballClubs.post("/add", footballClubsController.createClub);
  *   post:
  *     summary: Create a new club.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - club
  *     requestBody:
@@ -77,7 +77,7 @@ footballClubs.put("/:id", footballClubsController.updateClub);
  *   put:
  *     summary: Update an existing club.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - club
  *     parameters:
@@ -134,7 +134,7 @@ footballClubs.delete("/:id", footballClubsController.deleteClub);
  *   delete:
  *     summary: Delete a club by ID.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - club
  *     parameters:
@@ -162,10 +162,22 @@ module.exports = footballClubs;
 /**
  * @swagger
  * components:
+ *  securitySchemes:
+ *    githubAuth:
+ *      type: oauth2
+ *      flows:
+ *        authorizationCode:
+ *          authorizationUrl: https://github.com/login/oauth/authorize
+ *          tokenUrl: https://github.com/login/oauth/access_token
+ *          scopes:
+ *            read:user: Grants read-only access to the user's profile data
+ *          authorizationCode: 'code'
+ */
+/*
+ * components:
  *    securitySchemes:
  *      apiAuth:
  *        type: apiKey
  *        in: header
  *        name: apiKey
- *
  */

@@ -9,7 +9,7 @@ matchesRouter.get("/getall", matchesController.getAll);
  *    get:
  *      summary: Obtain a list of all matches collections.
  *      security:
- *        - apiAuth: []
+ *        - githubAuth: []
  *      tags:
  *        - matches
  *      responses:
@@ -28,7 +28,7 @@ matchesRouter.post("/add", matchesController.createMatch);
  *   post:
  *     summary: Create a new matches.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - matches
  *     requestBody:
@@ -77,7 +77,7 @@ matchesRouter.put("/:id", matchesController.updateMatch);
  *   put:
  *     summary: Update an existing match.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - matches
  *     parameters:
@@ -134,7 +134,7 @@ matchesRouter.delete("/:id", matchesController.deleteMatch);
  *   delete:
  *     summary: Delete a matches by ID.
  *     security:
- *        - apiAuth: []
+ *       - githubAuth: []
  *     tags:
  *       - matches
  *     parameters:
