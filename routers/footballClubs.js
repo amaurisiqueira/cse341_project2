@@ -159,8 +159,8 @@ footballClubs.delete("/:id", footballClubsController.deleteClub);
 module.exports = footballClubs;
 
 // component swagger
-/**
- * @swagger
+/*
+ * @ swagger
  * components:
  *  securitySchemes:
  *    githubAuth:
@@ -170,14 +170,15 @@ module.exports = footballClubs;
  *          authorizationUrl: https://github.com/login/oauth/authorize
  *          tokenUrl: https://github.com/login/oauth/access_token
  *          scopes:
- *            read:user: Grants read-only access to the user's profile data
- *          authorizationCode: 'code'
- */
-/*
+ *              read:user: Grants read-only access to the user's profile data
+ 
  * components:
- *    securitySchemes:
+ *    securit ySchemes:
  *      apiAuth:
  *        type: apiKey
  *        in: header
  *        name: apiKey
+ * 
+ *            read:user: Grants read-only access to the user's profile data
+ *         authorizationCode: 'code'
  */

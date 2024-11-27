@@ -13,10 +13,41 @@ const options = {
         email: "siq2585@byui.edu",
       },
     },
+    servers: [
+      {
+        url: "http://localhost:8089",
+        description: "Servidor local",
+      },
+      {
+        url: "https://cse341-project1-5jlz.onrender.com",
+        description: "Servidor de producción",
+      },
+    ],
+    components: {
+      securitySchemes: {
+        githubAuth: {
+          type: "oauth2",
+          flows: {
+            authorizationCode: {
+              authorizationUrl: "https://github.com/login/oauth/authorize",
+              tokenUrl: "https://github.com/login/oauth/access_token",
+              scopes: {
+                "read:user": "Leer información del usuario",
+                "user:email": "Leer correos electrónicos del usuario",
+              },
+            },
+          },
+        },
+      },
+    },
+    security: [
+      {
+        githubAuth: [],
+      },
+    ],
   },
-  schemes: ["https"],
   apis: [`${path.join(__dirname, "./routers/*.js")}`],
-  oauth2RedirectUrl: "http://localhost:8089/auth/github/callback",
+  oauth2RedirectUrl:"http://127.0.0.1:8089/auth/github/callback",
 };
 
 const swaggerSpec = swaggerJSDoc(options);

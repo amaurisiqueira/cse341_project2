@@ -1,15 +1,11 @@
 #### get all elements in a local project
 GET http://localhost:8089/club/getallw
-apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
-
 
 ##### get all elements from Render
 GET https://cse341-project2-rb86.onrender.com/club/getall HTTP/1.1
-apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
 
 ##### create new contact localhost
 POST https://cse341-project2-rb86.onrender.com/club/add HTTP/1.1
-apiKey: Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N
 
 Content-Type: application/json
 

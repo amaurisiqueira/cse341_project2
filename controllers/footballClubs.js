@@ -1,11 +1,10 @@
 const ObjectId = require("mongodb").ObjectId;
 const clubsData = require("../models/footballClub");
-const apiKey = require("../utils/getKey");
 const validateClub = require("../validation/validateClub");
 const { validationResult } = require("express-validator");
 
 const getAll = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+  
     const result = await clubsData.getAll();
 
     try {
@@ -16,14 +15,11 @@ const getAll = async (req, res) => {
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
-    }
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
+    }  
 };
 
 const createClub = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+  
     await Promise.all(validateClub.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
@@ -55,13 +51,11 @@ const createClub = async (req, res) => {
     }
 
     //const result = await clubsData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
+  
 };
 
 const updateClub = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+  
     await Promise.all(validateClub.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
@@ -92,13 +86,9 @@ const updateClub = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await clubsData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
+  
 };
 const deleteClub = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
   try {
     
       const clubId = new ObjectId(req.params.id);
@@ -113,11 +103,7 @@ const deleteClub = async (req, res) => {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
     }
-
-    //const result = await clubsData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
+ 
 
 
 };

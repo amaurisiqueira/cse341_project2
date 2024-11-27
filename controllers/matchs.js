@@ -1,11 +1,10 @@
 const ObjectId = require("mongodb").ObjectId;
 const matchData = require("../models/match");
-const apiKey = require("../utils/getKey");
 const validateMatch = require("../validation/validateMatch");
 const { validationResult } = require("express-validator");
 
 const getAll = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+
     const result = await matchData.getAll();
 
     try {
@@ -17,13 +16,11 @@ const getAll = async (req, res) => {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
     }
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
+
 };
 
 const createMatch = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+
     await Promise.all(validateMatch.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
@@ -54,14 +51,10 @@ const createMatch = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await matchData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
 };
 
 const updateMatch = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
+
     await Promise.all(validateMatch.map((validation) => validation.run(req)));
     const errors = validationResult(req);
 
@@ -92,13 +85,8 @@ const updateMatch = async (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     }
 
-    //const result = await matchData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
 };
 const deleteMatch = async (req, res) => {
-  if (req.header("apiKey") === apiKey) {
     try {
     
       const clubId = new ObjectId(req.params.id);
@@ -113,12 +101,6 @@ const deleteMatch = async (req, res) => {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
     }
-
-    //const result = await matchData.getAll();
-  } else {
-    res.status(401).send("Invalid apiKey, please read the documentation.");
-  }
-
 
 };
 

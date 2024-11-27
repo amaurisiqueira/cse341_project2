@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session');
 var passport = require("passport");
 const app = express();
 const footballClubsRouter = require("./routers/footballClubs");
@@ -20,6 +21,35 @@ app.use(
   })
 );
 
+// Configuración de express-session
+app.use(session({
+  secret: 'clave-secreta-para-sesion',
+  resave: false,
+  saveUninitialized: true,
+}))
+//Asegúrate de inicializar Passport y configurar la sesión en tu aplicación Express:
+.use(passport.initialize())
+.use(passport.session())
+
+.use((req, res, next) => {
+  res.setHeader("Access-Controll-Allow-Origin", "*");
+  res.setHeader(
+     "Access-Control-Allow-Headers",
+     "Origin, X-Requested-With, Content-Type, Accept, Z-Key, Authorization"
+  );
+  res.setHeader(
+     "Access-Control-Allow-Methods",
+     "POST, GET, PUT, PATCH, OPTIONS, DELETE"
+  );
+  next();
+})
+.use(cors({
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+}))
+.use(cors({
+  origin: '*'
+}));
+
 passport.use(
   new GitHubStrategy(
     {
@@ -28,15 +58,9 @@ passport.use(
       callbackURL: process.env.CALLBACKURL,
     },
     function (accessToken, refreshToken, profile, done) {
-      /* User.findOrCreate({ githubId: profile.id }, function (err, user) {
-        return done(err, user);
-      }
-     );*/
       return done(null, profile);
-    }
-  )
-);
-
+   }));
+  
 // Serializa el usuario para almacenarlo en la sesión
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -47,25 +71,27 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-//Asegúrate de inicializar Passport y configurar la sesión en tu aplicación Express:
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.get(
   "/auth/github",
-  passport.authenticate("github", {
-    scope: ["user:amauri.ferreira.siqueira@gmail.com"],
-  })
+  passport.authenticate("github", {   scope: ['read:user','user:email' ],  })
 );
-
+/*
 app.get(
   "/auth/github/callback",
-  passport.authenticate("github", { failureRedirect: "/login" }),
+  passport.authenticate("github", { failureRedirect: "/login" ,session:false }),
   function (req, res) {
     // Successful authentication, redirect home.
     res.redirect("/api-docs"); // Redirecciona a la documentación de Swagger después de un inicio de sesión exitoso
   }
 );
+*/
+app.get("/auth/github/callback", (req, res, next) => {
+  console.log("Callback recibido:", req.query); // Verifica si GitHub envía el "code" y "state"
+  passport.authenticate("github", { failureRedirect: "/login" })(req, res, next);
+}, (req, res) => {
+  res.redirect("/api-docs");
+});
 
 const authMiddleware = (req, res, next) => {
   if (req.isAuthenticated()) {
