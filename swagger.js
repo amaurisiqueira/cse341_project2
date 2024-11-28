@@ -42,12 +42,11 @@ const options = {
     },
     security: [
       {
-        githubAuth: [],
+        githubAuth: ["read:user", "user:email"],
       },
     ],
   },
   apis: [`${path.join(__dirname, "./routers/*.js")}`],
-  oauth2RedirectUrl:"http://127.0.0.1:8089/auth/github/callback",
 };
 
 const swaggerSpec = swaggerJSDoc(options);
