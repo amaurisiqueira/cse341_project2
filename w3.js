@@ -48,7 +48,12 @@ app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerSpec, {
-    oauth2RedirectUrl: "http://localhost:8089/api-docs/oauth2-redirect.html", // Ajusta según tu entorno
+    oauth: {
+      clientId: process.env.GITHUB_CLIENT_ID, // Solo necesitas el clientId
+      scopes: "read:user user:email",
+      usePkceWithAuthorizationCodeGrant: true, // Habilita PKCE
+    },
+    oauth2RedirectUrl: "http://localhost:8089/api-docs/oauth2-redirect.html", // Ruta de redirección de Swagger
   })
 );
 // Middleware de CORS
@@ -96,6 +101,7 @@ passport.use(
       callbackURL: process.env.CALLBACKURL,
     },
     function (accessToken, refreshToken, profile, done) {
+      console.log("Client Secret:", process.env.GITHUB_CLIENT_SECRET);
       return done(null, profile);
     }
   )
@@ -120,16 +126,9 @@ app.get(
 // Ruta de callback de GitHub después de la autenticación
 app.get(
   "/auth/github/callback",
-  (req, res, next) => {
-    console.log("Callback recibido:", req.query); // Verifica si GitHub envía el "code" y "state"
-    passport.authenticate("github", { failureRedirect: "/login" })(
-      req,
-      res,
-      next
-    );
-  },
+  passport.authenticate("github", { failureRedirect: "/login" }),
   (req, res) => {
-    res.redirect("/api-docs"); // Redirige a la documentación de Swagger después de un inicio de sesión exitoso
+    res.redirect("/api-docs"); // Regresa a Swagger UI tras la autenticación
   }
 );
 

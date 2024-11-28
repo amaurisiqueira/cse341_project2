@@ -29,8 +29,8 @@ const options = {
           type: "oauth2",
           flows: {
             authorizationCode: {
-              authorizationUrl: "https://github.com/login/oauth/authorize",
-              tokenUrl: "https://github.com/login/oauth/access_token",
+              authorizationUrl: "http://localhost:8089/auth/github",
+              tokenUrl: "http://localhost:8089/auth/github/callback",
               scopes: {
                 "read:user": "Leer información del usuario",
                 "user:email": "Leer correos electrónicos del usuario",
