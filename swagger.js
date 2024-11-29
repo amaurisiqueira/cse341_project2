@@ -10,7 +10,7 @@ const path = require("path");
       contact: {
         name: "Amauri Siqueira",
         url: "https://cse341-project1-5jlz.onrender.com",
-        email: "siq2585@byui.edu",
+        email: "siq23002@byui.edu",
       },
     },
     servers: [
@@ -40,7 +40,6 @@ const path = require("path");
   apis: [`${path.join(__dirname, "./routers/*.js")}`],
 };
 */
-
 
 const options = {
   definition: {
