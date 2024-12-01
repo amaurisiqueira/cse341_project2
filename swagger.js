@@ -1,6 +1,7 @@
 const swaggerJSDoc = require("swagger-jsdoc");
 const path = require("path");
-
+const env = require("dotenv");
+env.config();
 /*const options = {
   definition: {
     openapi: "3.0.0",
@@ -55,8 +56,8 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8089",
-        description: "Servidor local",
+        url: process.env.SERVERURL,
+        description: "Test Swagger Server",
       },
     ],
     components: {
